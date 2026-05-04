@@ -1,5 +1,7 @@
 # Simple Resume Drop
 
+**Contributors:** [Zainab Salman](https://github.com/ZainabSalman612/)  
+
 A lightweight plugin to create a dedicated resume upload page (`/resume-drop`) without using the Media Library.
 
 **Requires at least:** 5.0  
