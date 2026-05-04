@@ -1,0 +1,20 @@
+/* Admin CSS for Simple Resume Drop */
+
+.srd-admin-wrap {
+	margin-top: 20px;
+}
+
+.srd-btn-action {
+	margin-right: 5px !important;
+}
+
+.srd-btn-delete {
+	color: #b32d2e !important;
+	border-color: #b32d2e !important;
+}
+
+.srd-btn-delete:hover {
+	color: #fff !important;
+	background: #b32d2e !important;
+	border-color: #b32d2e !important;
+}
