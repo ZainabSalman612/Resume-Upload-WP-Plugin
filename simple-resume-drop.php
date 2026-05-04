@@ -4,6 +4,7 @@
  * Description:       A lightweight plugin to create a dedicated resume upload page (/resume-drop) without using the Media Library.
  * Version:           1.0.0
  * Author:            Zainab Salman
+ * Author URI:        https://github.com/ZainabSalman612/
  */
 
 if ( ! defined( 'WPINC' ) ) {
