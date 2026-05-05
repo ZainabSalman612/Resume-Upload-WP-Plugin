@@ -83,6 +83,25 @@ class SRD_Ajax {
 			wp_send_json_error( array( 'message' => 'Failed to save record to the database.' ) );
 		}
 
+		// Send email notification if configured
+		$notification_email = get_option( 'srd_notification_email' );
+		if ( ! empty( $notification_email ) && is_email( $notification_email ) ) {
+			$to          = $notification_email;
+			$subject     = 'New Resume Submission from NextHire Solutions';
+			$message     = 'A new resume has been submitted. Please find the resume attached.';
+			
+			// Set Content-Type and custom sender name
+			$sender_email = get_option( 'admin_email' );
+			$headers      = array( 
+				'Content-Type: text/html; charset=UTF-8',
+				'From: NextHire Solutions <' . $sender_email . '>'
+			);
+			
+			$attachments = array( $file_path );
+			
+			wp_mail( $to, $subject, $message, $headers, $attachments );
+		}
+
 		// 9. Success Response
 		wp_send_json_success( array( 'message' => 'Your resume has been submitted successfully.' ) );
 	}

@@ -9,12 +9,19 @@ class SRD_Admin {
 		// Admin Menu
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 		
+		// Register Settings
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		
 		// Enqueue Admin CSS
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
 		// Action Hooks for Download and Delete
 		add_action( 'admin_post_srd_download_resume', array( $this, 'handle_download' ) );
 		add_action( 'admin_post_srd_delete_resume', array( $this, 'handle_delete' ) );
+	}
+
+	public function register_settings() {
+		register_setting( 'srd_settings_group', 'srd_notification_email', 'sanitize_email' );
 	}
 
 	public function enqueue_styles( $hook ) {
@@ -41,6 +48,46 @@ class SRD_Admin {
 			'dashicons-media-document',
 			30
 		);
+
+		add_submenu_page(
+			'srd-resume-drops',
+			'All Resumes',
+			'All Resumes',
+			'manage_options',
+			'srd-resume-drops',
+			array( $this, 'display_plugin_admin_page' )
+		);
+
+		add_submenu_page(
+			'srd-resume-drops',
+			'Settings',
+			'Settings',
+			'manage_options',
+			'srd-settings',
+			array( $this, 'display_settings_page' )
+		);
+	}
+
+	public function display_settings_page() {
+		?>
+		<div class="wrap">
+			<h1>Resume Drops Settings</h1>
+			<form method="post" action="options.php">
+				<?php settings_fields( 'srd_settings_group' ); ?>
+				<?php do_settings_sections( 'srd_settings_group' ); ?>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">Notification Email</th>
+						<td>
+							<input type="email" name="srd_notification_email" value="<?php echo esc_attr( get_option('srd_notification_email') ); ?>" class="regular-text" />
+							<p class="description">Enter the email address where you want to receive new resume submissions. Leave blank to disable email notifications.</p>
+						</td>
+					</tr>
+				</table>
+				<?php submit_button(); ?>
+			</form>
+		</div>
+		<?php
 	}
 
 	public function display_plugin_admin_page() {
