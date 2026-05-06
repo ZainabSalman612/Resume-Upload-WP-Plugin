@@ -87,7 +87,7 @@ class SRD_Ajax {
 		$notification_email = get_option( 'srd_notification_email' );
 		if ( ! empty( $notification_email ) && is_email( $notification_email ) ) {
 			$to          = $notification_email;
-			$subject     = 'new resume submission from nexthire solutions';
+			$subject     = 'New Submission from NextHire Solutions';
 			$message     = 'A new resume has been submitted. Please find the resume attached.';
 			
 			// Set Content-Type
@@ -95,7 +95,15 @@ class SRD_Ajax {
 			
 			$attachments = array( $file_path );
 			
+			// Safely set the sender name to avoid SMTP header conflicts
+			$custom_name_filter = function() {
+				return 'NextHire Solutions';
+			};
+			add_filter( 'wp_mail_from_name', $custom_name_filter );
+			
 			wp_mail( $to, $subject, $message, $headers, $attachments );
+			
+			remove_filter( 'wp_mail_from_name', $custom_name_filter );
 		}
 
 		// 9. Success Response
