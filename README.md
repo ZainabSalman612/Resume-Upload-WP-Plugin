@@ -38,7 +38,7 @@ Currently, the plugin strictly allows `.pdf`, `.doc`, and `.docx` files.
 The plugin currently restricts uploads to a maximum of 5MB.
 
 ### Where do the uploaded files go?
-They are stored safely in `/wp-content/uploads/resume-submissions/` and are NOT visible in your standard WordPress Media Library.
+They are stored safely in `/wp-content/uploads/resume-submissions/` and are NOT visible in your standard WordPress Media Library. Additionally, each new submission is sent as an email notification to the address you have configured in the **Settings** tab. If the email field is left empty, resumes will **not** be emailed and will only appear in the **Resume Drop** admin tab.
 
 ## Changelog
 
